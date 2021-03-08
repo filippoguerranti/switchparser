@@ -40,13 +40,3 @@ vartable* SetVar(char* varname)
     thead = ptr;
     return ptr;
 }
-
-
-void SetValue(vartable* variable, int varvalue)
-{
-    vartable* ptr;
-    if( GetVar(variable->varname) == NULL )
-        ptr = PutVar(variable->varname);
-
-    ptr->varvalue = varvalue;
-}

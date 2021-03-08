@@ -1,13 +1,13 @@
 %{
     #include "switch.h"
     /* invlude YACC symbol encoding */
-    #include "switch.tab.h"
+    #include "switch2.tab.h"
     int yylex();
 %}
 
 %option noyywrap
 
-ID [[:alpha:]]+[[:alphanum:]]*
+ID [[:alpha:]]+[[:alnum:]]*
 NUMBER [[:digit:]]+
 
 %%

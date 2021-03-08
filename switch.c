@@ -19,7 +19,7 @@ vartable* GetVar(char* varname)
 }
 
 /* Add a variable to the table and set its value */
-vartable* SetVar(char* varname)
+vartable* PutVar(char* varname)
 {
     vartable* ptr;
 

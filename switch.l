@@ -20,7 +20,7 @@ case                    return CASE;
 default                 return DEFAULT;
 {ID}                    { 
                             if( (ptr = GetVar(yytext)) == NULL )
-                                ptr = SetVar(yytext, VAR);
+                                ptr = PutVar(yytext, VAR);
                             yylval.sptr = ptr; 
                             return ptr->type; 
                         };

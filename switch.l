@@ -20,9 +20,9 @@ case                    return CASE;
 default                 return DEFAULT;
 {ID}                    { 
                             if( (ptr = GetVar(yytext)) == NULL )
-                                ptr = PutVar(yytext, VAR);
+                                ptr = PutVar(yytext);
                             yylval.sptr = ptr; 
-                            return ptr->type; 
+                            return VAR; 
                         };
 {NUMBER}                { 
                             yylval.num = atoi(yytext); 

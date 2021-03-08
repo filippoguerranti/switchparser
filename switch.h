@@ -17,4 +17,4 @@ vartable* thead; /* head of variable table list */
 /******** function prototypes ********/
 vartable* GetVar(char*);
 vartable* PutVar(char*);
-bool SetValue(vartable*, int);
+void SetValue(vartable*, int);

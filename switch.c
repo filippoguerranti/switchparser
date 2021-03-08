@@ -42,10 +42,13 @@ vartable* SetVar(char* varname)
 }
 
 
-bool SetValue(vartable* variable, int varvalue)
+void SetValue(vartable* variable, int varvalue)
 {
+    vartable* ptr;
     if( GetVar(variable->varname) == NULL )
-         return false;
+    {
+        ptr = PutVar(variable->varname);
+    }
 
     variable->varvalue = varvalue;
     return true;

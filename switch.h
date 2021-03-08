@@ -1,19 +1,19 @@
 /*
- * Symbol Table element
- * The Symbol Table is a list of entries
+ * Variables Table element
+ * The Variables Table is a list of entries
  * that represent the variables used by the switch.
  */
 
-typedef struct SymbTbl
+typedef struct VarTable
 {
     char* varname;  /* symbol name */
     int varvalue;   /* symbol value */
-    struct SymbTbl* next; /* list forward pointer */ 
-} symbtbl;
+    struct VarTable* next; /* list forward pointer */ 
+} vartable;
 
 /******** global variables ********/
-symbtbl* st; /* head of symbol table list */
+vartable* st; /* head of symbol table list */
 
 /******** function prototypes ********/
-symbtbl* GetSymb(char* );
-symbtbl* PutSymb(char*, int);
+vartable* GetSymb(char* );
+vartable* PutSymb(char*, int);

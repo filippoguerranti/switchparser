@@ -18,7 +18,7 @@ vartable* GetVar(char* varname)
     return NULL;    /* not found */
 }
 
-/* Add a variable to the table and set its value */
+/* Add a variable to the table and initialize its value to 0 */
 vartable* PutVar(char* varname)
 {
     vartable* ptr;
@@ -35,8 +35,8 @@ vartable* PutVar(char* varname)
         return NULL;    /* allocation failed */
     }
 
-    ptr->varvalue = 0;
+    ptr->varvalue = 0;  /* initialize the variable value to 0 */
     ptr->next = thead;
-    thead = ptr;
+    thead = ptr;        /* update the head of the variable table */
     return ptr;
 }

@@ -11,7 +11,7 @@ ID [[:alpha:]]+[[:alphanum:]]*
 NUMBER [[:digit:]]+
 
 %%
-    symbtbl* ptr;       /* local variable */
+    vartable* ptr;       /* local variable */
 
 [[:space:]]+            /* skip spaces, tabs and new lines */;
 break                   return BREAK;
@@ -19,8 +19,8 @@ switch                  return SWITCH;
 case                    return CASE;
 default                 return DEFAULT;
 {ID}                    { 
-                            if( (ptr = GetSymb(yytext)) == NULL )
-                                ptr = SetSymb(yytext, VAR);
+                            if( (ptr = GetVar(yytext)) == NULL )
+                                ptr = SetVar(yytext, VAR);
                             yylval.sptr = ptr; 
                             return ptr->type; 
                         };

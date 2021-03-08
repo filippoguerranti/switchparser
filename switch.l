@@ -21,7 +21,7 @@ default                 return DEFAULT;
 {ID}                    { 
                             if( (ptr = GetVar(yytext)) == NULL )
                                 ptr = PutVar(yytext);
-                            yylval.sptr = ptr; 
+                            yylval.tptr = ptr; 
                             return VAR; 
                         };
 {NUMBER}                { 

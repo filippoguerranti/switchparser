@@ -25,7 +25,7 @@ default                 return DEFAULT;
                             return VAR; 
                         };
 {NUMBER}                { 
-                            yylval.num = atoi(yytext); 
+                            yylval.value = atoi(yytext); 
                             return NUM; 
                         };
 .                       return yytext[0]; /* any other character */

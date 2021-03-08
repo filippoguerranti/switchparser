@@ -1,15 +1,32 @@
 %{
-    #include "switch.tab.h"
+    #include "switch.h"
+    /* invlude YACC symbol encoding */
+    #include "switch2.tab.h"
+    int yylex();
 %}
+
 %option noyywrap
 
+ID [[:alpha:]]+[[:alnum:]]*
+NUMBER [[:digit:]]+
+
 %%
-[ \t\n]+                /* skip spaces, tabs and new lines */;
+    vartable* ptr;       /* local variable */
+
+[[:space:]]+            /* skip spaces, tabs and new lines */;
 break                   return BREAK;
 switch                  return SWITCH;
 case                    return CASE;
 default                 return DEFAULT;
-[a-zA-Z][a-zA-Z0-9]*    { yylval.str = strdup(yytext); return VAR; };
-[0-9]+                  { yylval.num = atoi(yytext); return NUM; };
-.                       return yytext[0];
+{ID}                    { 
+                            if( (ptr = GetVar(yytext)) == NULL )
+                                ptr = PutVar(yytext);
+                            yylval.tptr = ptr; 
+                            return VAR; 
+                        };
+{NUMBER}                { 
+                            yylval.value = atoi(yytext); 
+                            return NUM; 
+                        };
+.                       return yytext[0]; /* any other character */
 %%

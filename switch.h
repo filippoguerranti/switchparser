@@ -15,5 +15,5 @@ typedef struct VarTable
 vartable* st; /* head of symbol table list */
 
 /******** function prototypes ********/
-vartable* GetSymb(char* );
-vartable* PutSymb(char*, int);
+vartable* GetVar(char* );
+vartable* SetVar(char*, int);

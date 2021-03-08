@@ -6,13 +6,13 @@
 
 typedef struct VarTable
 {
-    char* varname;  /* symbol name */
-    int varvalue;   /* symbol value */
+    char* varname;  /* variable name */
+    int varvalue;   /* variable value */
     struct VarTable* next; /* list forward pointer */ 
 } vartable;
 
 /******** global variables ********/
-vartable* st; /* head of symbol table list */
+vartable* thead; /* head of variable table list */
 
 /******** function prototypes ********/
 vartable* GetVar(char* );

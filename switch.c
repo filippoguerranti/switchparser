@@ -49,5 +49,4 @@ void SetValue(vartable* variable, int varvalue)
         ptr = PutVar(variable->varname);
 
     variable->varvalue = varvalue;
-    return true;
 }

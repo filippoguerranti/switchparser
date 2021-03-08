@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "switch.h"
 
@@ -13,6 +14,8 @@ vartable* GetVar(char* varname)
     for( ptr = thead; ptr != NULL; ptr = ptr->next)
         if( !strcmp(ptr->varname, varname) )
             return ptr;
+
+    return NULL;    /* not found */
 }
 
 /* Add a variable to the table and set its value */
@@ -36,4 +39,14 @@ vartable* SetVar(char* varname)
     ptr->next = thead;
     thead = ptr;
     return ptr;
+}
+
+
+bool SetValue(vartable* variable, int varvalue)
+{
+    if( GetVar(variable->varname) == NULL )
+         return false;
+
+    variable->varvalue = varvalue;
+    return true;
 }

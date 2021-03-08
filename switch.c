@@ -48,5 +48,5 @@ void SetValue(vartable* variable, int varvalue)
     if( GetVar(variable->varname) == NULL )
         ptr = PutVar(variable->varname);
 
-    variable->varvalue = varvalue;
+    ptr->varvalue = varvalue;
 }

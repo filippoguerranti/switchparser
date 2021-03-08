@@ -16,10 +16,10 @@
     int yylex();
 
     /* global variables */
-    bool caseMatch = false;
-    bool skipAssignment = true;
-    vartable* switchVariable = NULL;
-    vartable* caseVariable = NULL;
+    bool exitSwitch = false;            /* true if the switch variable match a case number, so after the assignment we can exit the switch */
+    bool skipAssignment = true;         /* true if the case assignment has to be skipped */
+    vartable* switchVariable = NULL;    /* switch variable, pointer to vartable */
+    vartable* caseVariable = NULL;      /* case variable (a.k.a. z), pointer to vartable */
 %}
 
 /********** YACC data types for variables **********/ 
@@ -53,38 +53,45 @@ switch  : SWITCH '(' VAR ')'
           '{' cases '}'
         ;
 
+/* an assignment is a VAR followed by an equal sign followed by a NUM */
 assignment  : VAR '=' NUM ';' 
                 { 
+                    /* the variable value is set to the value of NUM */
                     $1->varvalue = $3; 
                 }
             ;
 
+/* a zassignment is the assignment of the variable z (the one inside the case) */
 zassignment  : VAR '=' NUM ';'
-                    {
+                    {   
+                        /* if the assignment has to be skipped we do nothing */
                         if( !skipAssignment )
                             $1->varvalue = $3; 
-                            caseVariable = $1;
+                            caseVariable = $1;  /* set the case variable (to be printed) */
                     }
 
+/* the block of cases can be empty, can be a default block or a case followed by other cases or default */
 cases   : /* empty */
         | case cases
         | default
         ;
 
+/* a case is a CASE token followed by a NUM, a COLON, an assignment of the case variable and a break statement */
 case    : CASE NUM
             {   
                 /* check if the switch variable value is equal to the case number */
                 if( $2 == switchVariable->varvalue ) 
                 {
-                    skipAssignment = false;
-                    caseMatch = true;
+                    /* if the case num matches the switch variable we do the assignment */
+                    skipAssignment = false; 
+                    exitSwitch = true;
                 }
                 else skipAssignment = true;
             }
           ':' zassignment BREAK ';'    
             {   
                 /* if case match, we exit the switch and assign the value to z */
-                if( caseMatch ) 
+                if( exitSwitch ) 
                 {
                     printf("z = %d\n", caseVariable->varvalue);
                     exit(0);
@@ -92,8 +99,10 @@ case    : CASE NUM
             }
         ;
 
+/* a default is a DEFAULT token followed by a colon, an assignment of the case variable and a break statement */
 default : DEFAULT
             {
+                /* if we reach the default statement it means that all the other cases have been checked, so we can make the assignment */
                 skipAssignment = false;
             }
           ':' zassignment BREAK ';'

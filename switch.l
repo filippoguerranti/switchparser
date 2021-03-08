@@ -1,7 +1,7 @@
 %{
     #include "switch.h"
     /* invlude YACC symbol encoding */
-    #include "switch2.tab.h"
+    #include "switch.tab.h"
     int yylex();
 %}
 
